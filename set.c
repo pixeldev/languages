@@ -46,8 +46,6 @@ void hash_table_resize(HashTable *table) {
     table->entries = calloc(table->capacity, sizeof(HashEntry));
     table->size = 0;
 
-    printf("Redimensionando tabla de %zu a %zu\n", old_capacity, table->capacity);
-
     for (size_t i = 0; i < old_capacity; i++) {
         if (old_entries[i].used) {
             hash_table_insert(table, old_entries[i].key);

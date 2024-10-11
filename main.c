@@ -1,9 +1,9 @@
 #include "language.h"
 
 int main(void) {
-    int first_language_size = 0;
+    int first_language_size = -1;
 
-    while (first_language_size < 1) {
+    while (first_language_size < 0) {
         printf("Introduce el tamaño del primer lenguaje:\n>> ");
         scanf("%d", &first_language_size);
     }
@@ -11,25 +11,38 @@ int main(void) {
     HashTable *first_language = hash_table_create(first_language_size);
 
     char buffer[100];
-    printf("Introduce palabras separadas por espacios:\n>> ");
-    for (int i = 0; i < first_language_size; i++) {
-        scanf("%99s", buffer);
-        hash_table_insert(first_language, buffer);
+
+    if (first_language_size > 0) {
+        printf("Introduce palabras separadas por espacios (*** para vacío):\n>> ");
+        for (int i = 0; i < first_language_size; i++) {
+            scanf("%99s", buffer);
+            if (string_equals(buffer, "***")) {
+                hash_table_insert(first_language, "");
+            } else {
+                hash_table_insert(first_language, buffer);
+            }
+        }
     }
 
-    int second_language_size = 0;
+    int second_language_size = -1;
 
-    while (second_language_size < 1) {
+    while (second_language_size < 0) {
         printf("Introduce el tamaño del segundo lenguaje:\n>> ");
         scanf("%d", &second_language_size);
     }
 
     HashTable *second_language = hash_table_create(second_language_size);
 
-    printf("Introduce palabras separadas por espacios:\n>> ");
-    for (int i = 0; i < second_language_size; i++) {
-        scanf("%99s", buffer);
-        hash_table_insert(second_language, buffer);
+    if (second_language_size > 0) {
+        printf("Introduce palabras separadas por espacios (*** para vacío):\n>> ");
+        for (int i = 0; i < second_language_size; i++) {
+            scanf("%99s", buffer);
+            if (string_equals(buffer, "***")) {
+                hash_table_insert(second_language, "");
+            } else {
+                hash_table_insert(second_language, buffer);
+            }
+        }
     }
 
     printf("--=-- L1 --=--\n");
@@ -39,12 +52,13 @@ int main(void) {
 
     int option = 0;
 
-    while (option != 4) {
+    while (option != 5) {
         printf("Selecciona una opción:\n");
         printf("1. Unión\n");
         printf("2. Concatenación\n");
         printf("3. Potencia\n");
-        printf("4. Salir\n");
+        printf("4. Imprimir\n");
+        printf("5. Salir\n");
         printf(">> ");
 
         scanf("%d", &option);
@@ -93,6 +107,13 @@ int main(void) {
                 printf("--=-- Potencia --=--\n");
                 hash_table_print(power_table);
                 hash_table_free(power_table);
+                break;
+            }
+            case 4: {
+                printf("--=-- L1 --=--\n");
+                hash_table_print(first_language);
+                printf("--=-- L2 --=--\n");
+                hash_table_print(second_language);
                 break;
             }
         }

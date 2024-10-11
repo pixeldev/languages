@@ -72,7 +72,6 @@ HashTable *language_power(HashTable *language, int n) {
     HashTable *result = language_concatenate(language, language);
 
     for (int i = 2; i < n; i++) {
-        printf("Potencia #%d\n", i);
         HashTable *temp = language_concatenate(result, language);
         hash_table_free(result);
         result = temp;
